@@ -1,118 +1,25 @@
-# simple-calculator-with-logs
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Simple Calculator with Logs</title>
-  <link rel="stylesheet" href="C:\Users\DELL\Desktop\sstyle.css">
-</head>
-<body>
-  <div class="calculator">
-    <h1>Simple Calculator</h1>
-    <input type="text" id="display" disabled>
+# Simple Calculator with Logs
 
-    <div class="buttons">
-      <button onclick="press('7')">7</button>
-      <button onclick="press('8')">8</button>
-      <button onclick="press('9')">9</button>
-      <button onclick="press('/')">/</button>
+## 📋 Summary
+A basic calculator with real-time functionality and history log.
 
-      <button onclick="press('4')">4</button>
-      <button onclick="press('5')">5</button>
-      <button onclick="press('6')">6</button>
-      <button onclick="press('*')">*</button>
+## 🛠️ Technologies Used
+- HTML
+- CSS
+- JavaScript
+- JAVA
 
-      <button onclick="press('1')">1</button>
-      <button onclick="press('2')">2</button>
-      <button onclick="press('3')">3</button>
-      <button onclick="press('-')">-</button>
+## 🎯 Features
+- Basic arithmetic operations
+- View calculation history
+- Clean single-page UI
 
-      <button onclick="press('0')">0</button>
-      <button onclick="clearDisplay()">C</button>
-      <button onclick="calculate()">=</button>
-      <button onclick="press('+')">+</button>
+## 🖥️ How to Run
+1. Download or clone this repo
+2. Open `index.html` in your browser
 
-      <button onclick="calculateTrig('sin')">sin</button>
-      <button onclick="calculateTrig('cos')">cos</button>
-      <button onclick="calculateTrig('tan')">tan</button>
-
-      
-      <button onclick="appendValue('^')">x^y</button>
+## 📸 Preview
+![Preview Screenshot](scree<img width="1366" height="714" alt="screencapture-file-C-Users-DELL-Desktop-simple-calculator-with-logs-index-html-2025-08-05-14_57_09" src="https://github.com/user-attachments/assets/cc15557b-6200-4811-a3f7-aed08c0a49f1" />
+nshot.png)
 
 
-
-
-
-    </div>
-
-
-    <!-- View History Button -->
-<button onclick="viewAllHistory()">View History</button>
-
-
-
-<!-- History Panel -->
-<div id="historyBox" style="margin-top:20px;  margin-bottom: 10px; padding:10px; max-height:400px; overflow-y:auto; border:1px solid #ccc;">
-  
-  <ul id="historyList"></ul>
-</div>
-
-
-
-   
- 
-  
-
-  <script src="C:\Users\DELL\Desktop\simple calculator javascript.js"></script>
-  
-  <script>
-    let expression = "";
-
-    function press(val) {
-      expression += val;
-      document.getElementById("display").value = expression;
-    }
-
-    function clearDisplay() {
-      expression = "";
-      document.getElementById("display").value = "";
-    }
-
-    function calculate() {
-      try {
-        let result = eval(expression);
-        document.getElementById("display").value = result;
-
-        fetch("/calculate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            expression: expression,
-            result: result.toString()
-          })
-        });
-
-        expression = "";
-      } catch {
-        document.getElementById("display").value = "Error";
-        expression = "";
-      }
-    }
-
-    function viewHistory() {
-      fetch("/history")
-        .then(res => res.json())
-        .then(data => {
-          const histDiv = document.getElementById("history");
-          histDiv.innerHTML = "<strong>Calculation History:</strong><br>";
-          data.reverse().forEach(entry => {
-            histDiv.innerHTML += `${entry.expression} = ${entry.result}<br>`;
-          });
-        });
-    }
-    
-
-  </script>
-
-</body>
-</html>
